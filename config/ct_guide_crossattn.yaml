@@ -1,0 +1,40 @@
+loss: loss.coxph_loss
+n_fold: 5
+data_seed: 1
+dataset: dataset.WSI_Dataset.SlidePatchCT
+center: ['GY']
+
+
+H_coors: True
+
+model: model.ct_crossattn_mlp.Model
+model_args:
+  in_channels: 512
+  n_target: 1
+  dropout: 0.3
+
+
+model_wsi: model.HGDSv2.Model
+model_wsi_args:
+  in_channels: 1792
+  n_target: 1
+  k_nearest: 12
+  hiddens: [128]
+  hds_layer_num: 1
+  hds_step: 10
+  hds_dropout: 0.1
+  hds_alpha: 0.1
+  dropout: 0.28
+
+weight_decay: 0.005
+base_lr: 0.1
+lr_decay_rate: 0.1
+step: 50
+num_epoch: 3
+
+lamb: 0.9
+
+# training
+device: [7]
+batch_size: 16
+test_batch_size: 16
